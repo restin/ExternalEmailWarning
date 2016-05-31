@@ -50,7 +50,8 @@ namespace ExternalEmailWarning
                             if (smtpAddress2.IndexOf("@primewest.org") <= 0
                                 && smtpAddress2.IndexOf("@co.itasca.mn.us") <= 0
                                 && smtpAddress2.IndexOf("@cirdanhealth.com") <= 0
-                                && smtpAddress2.IndexOf("primetherapeutics.com") <= 0)
+                                && smtpAddress2.IndexOf("primetherapeutics.com") <= 0
+                                && smtpAddress2.IndexOf("medimpact.com") <= 0)
                             {
                                 recipients.Add(smtpAddress2);
                                 count++;
@@ -62,7 +63,8 @@ namespace ExternalEmailWarning
                     if (smtpAddress.IndexOf("@primewest.org") <= 0
                         && smtpAddress.IndexOf("@co.itasca.mn.us") <= 0
                         && smtpAddress.IndexOf("@cirdanhealth.com") <= 0
-                        && smtpAddress.IndexOf("primetherapeutics.com") <= 0)
+                        && smtpAddress.IndexOf("primetherapeutics.com") <= 0
+                        && smtpAddress.IndexOf("medimpact.com") <= 0)
                     {
                         recipients.Add(smtpAddress);
                         count++;
