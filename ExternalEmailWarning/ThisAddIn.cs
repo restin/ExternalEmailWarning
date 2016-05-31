@@ -88,7 +88,8 @@ namespace ExternalEmailWarning
                         mail.Sensitivity = Outlook.OlSensitivity.olConfidential;
                         Cancel = false;
                         break;
-                    case 1: //send email as is
+                    case 1: //send email normal
+                        mail.Sensitivity = Outlook.OlSensitivity.olNormal;
                         Cancel = false;
                         break;
                     case 2: //cancel send 
