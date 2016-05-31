@@ -34,7 +34,7 @@
     <PublishUrl>\\pwhdc02\SYSVOL\PrimeWestHealthSystem.local\scripts\AppDeploy_EmailAddin_Test\</PublishUrl>
     <InstallUrl>\\pwhdc02\SYSVOL\PrimeWestHealthSystem.local\scripts\AppDeploy_EmailAddin_Test\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>2.0.0.1</ApplicationVersion>
+    <ApplicationVersion>2.0.0.3</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
