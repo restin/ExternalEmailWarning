@@ -19,84 +19,86 @@ namespace ExternalEmailWarning
 
         private void Application_ItemSend(object Item, ref bool Cancel)
         {
+            MessageBox.Show("Test Version");
             Outlook.MailItem mail = Item as Outlook.MailItem;
             List<string> recipients = new List<string>();
 
             int count = 0;
             const string PR_SMTP_ADDRESS = "http://schemas.microsoft.com/mapi/proptag/0x39FE001E";
 
-            if (mail.Sensitivity == 0)
+            // Stop the email from sending so the addresses can be checked first
+            Cancel = true;
+
+            /// <summary>
+            /// Get list of recipients and check for any external addresses. This process also 
+            /// checks the members in distribution groups. Many groups may slow down processing.
+            /// </summary>
+            foreach (Outlook.Recipient rec in mail.Recipients)
             {
-                Cancel = true;
+                Outlook.PropertyAccessor pa = rec.PropertyAccessor;
+                string smtpAddress = pa.GetProperty(PR_SMTP_ADDRESS).ToString();
+                smtpAddress = smtpAddress.ToLower();
 
-                //Get list of recipients and check for any external
-                foreach (Outlook.Recipient rec in mail.Recipients)
+                if (rec.AddressEntry.DisplayType == Outlook.OlDisplayType.olDistList)
                 {
-                    Outlook.PropertyAccessor pa = rec.PropertyAccessor;
-                    string smtpAddress = pa.GetProperty(PR_SMTP_ADDRESS).ToString();
-                    smtpAddress = smtpAddress.ToLower();
+                    Outlook.PropertyAccessor pa2;
+                    string smtpAddress2;
 
-                    if (rec.AddressEntry.DisplayType == Outlook.OlDisplayType.olDistList)
+                    foreach (Outlook.AddressEntry myAE in rec.AddressEntry.Members)
                     {
-                        Outlook.PropertyAccessor pa2;
-                        string smtpAddress2;
+                        pa2 = myAE.PropertyAccessor;
+                        smtpAddress2 = pa2.GetProperty(PR_SMTP_ADDRESS).ToString();
+                        smtpAddress2 = smtpAddress2.ToLower();
 
-                        foreach (Outlook.AddressEntry myAE in rec.AddressEntry.Members)
+                        if (smtpAddress2.IndexOf("@primewest.org") <= 0
+                            && smtpAddress2.IndexOf("@co.itasca.mn.us") <= 0
+                            && smtpAddress2.IndexOf("@cirdanhealth.com") <= 0
+                            && smtpAddress2.IndexOf("primetherapeutics.com") <= 0
+                            && smtpAddress2.IndexOf("medimpact.com") <= 0)
                         {
-                            pa2 = myAE.PropertyAccessor;
-                            smtpAddress2 = pa2.GetProperty(PR_SMTP_ADDRESS).ToString();
-                            smtpAddress2 = smtpAddress2.ToLower();
-
-                            if (smtpAddress2.IndexOf("@primewest.org") <= 0
-                                && smtpAddress2.IndexOf("@co.itasca.mn.us") <= 0
-                                && smtpAddress2.IndexOf("@cirdanhealth.com") <= 0
-                                && smtpAddress2.IndexOf("primetherapeutics.com") <= 0
-                                && smtpAddress2.IndexOf("medimpact.com") <= 0)
-                            {
-                                recipients.Add(smtpAddress2);
-                                count++;
-                            }
+                            recipients.Add(smtpAddress2);
+                            count++;
                         }
                     }
-
-                    //add the addresses that are external to the list box for display
-                    if (smtpAddress.IndexOf("@primewest.org") <= 0
-                        && smtpAddress.IndexOf("@co.itasca.mn.us") <= 0
-                        && smtpAddress.IndexOf("@cirdanhealth.com") <= 0
-                        && smtpAddress.IndexOf("primetherapeutics.com") <= 0
-                        && smtpAddress.IndexOf("medimpact.com") <= 0)
-                    {
-                        recipients.Add(smtpAddress);
-                        count++;
-                    }
-
                 }
 
-                //If any of the recipients are external then create the SecureEmailForm and populate the list with those members
-                if (count > 0)
+                //add the addresses that are external to the list box for display
+                if (smtpAddress.IndexOf("@primewest.org") <= 0
+                    && smtpAddress.IndexOf("@co.itasca.mn.us") <= 0
+                    && smtpAddress.IndexOf("@cirdanhealth.com") <= 0
+                    && smtpAddress.IndexOf("primetherapeutics.com") <= 0
+                    && smtpAddress.IndexOf("medimpact.com") <= 0)
                 {
-                    SecureEmailForm frmWarningForm = new SecureEmailForm(recipients);
-                    frmWarningForm.StartPosition = FormStartPosition.CenterParent;
-                    frmWarningForm.ShowDialog();
+                    recipients.Add(smtpAddress);
+                    count++;
+                }
 
-                    //If any external recipients, run the switch statement, if not the set Cancel to false
-                    switch (frmWarningForm.OptionSelected())
-                    {
-                        case 0://change value of sensitivity and then send
-                            mail.Sensitivity = Outlook.OlSensitivity.olConfidential;
-                            Cancel = false;
-                            break;
-                        case 1: //send email as is
-                            Cancel = false;
-                            break;
-                        case 2: //cancel send 
-                            break;
-                    }
-                }
-                else
+            }
+
+            //If any of the recipients are external then create the SecureEmailForm and populate the list with those members
+            if (count > 0)
+            {
+                SecureEmailForm frmWarningForm = new SecureEmailForm(recipients);
+                frmWarningForm.StartPosition = FormStartPosition.CenterParent;
+                frmWarningForm.ShowDialog();
+
+                //If any external recipients, run the switch statement, if not the set Cancel to false
+                switch (frmWarningForm.OptionSelected())
                 {
-                    Cancel = false;
+                    case 0://change value of sensitivity and then send
+                        mail.Sensitivity = Outlook.OlSensitivity.olConfidential;
+                        Cancel = false;
+                        break;
+                    case 1: //send email as is
+                        Cancel = false;
+                        break;
+                    case 2: //cancel send 
+                        break;
                 }
+            }
+            else
+            {
+                Cancel = false;
             }
         }
         #region VSTO generated code

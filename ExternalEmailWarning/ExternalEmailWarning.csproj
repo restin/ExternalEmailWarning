@@ -190,6 +190,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SecureEmailForm.resx">
+      <DependentUpon>SecureEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="primewest.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
