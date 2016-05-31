@@ -19,7 +19,6 @@ namespace ExternalEmailWarning
 
         private void Application_ItemSend(object Item, ref bool Cancel)
         {
-            MessageBox.Show("Test Version");
             Outlook.MailItem mail = Item as Outlook.MailItem;
             List<string> recipients = new List<string>();
 
