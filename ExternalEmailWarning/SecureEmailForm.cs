@@ -24,7 +24,7 @@ namespace ExternalEmailWarning
 
         private void btnSendSecure_Click(object sender, EventArgs e)
         {
-            //change value of sensitivity and then send
+            //change value of and then send
             _optionSelected = 0;
             this.Close();
         }

@@ -84,11 +84,11 @@ namespace ExternalEmailWarning
                 //If any external recipients, run the switch statement, if not the set Cancel to false
                 switch (frmWarningForm.OptionSelected())
                 {
-                    case 0://change value of sensitivity and then send
+                    case 0://change value of sensitivity to Confidential and then send
                         mail.Sensitivity = Outlook.OlSensitivity.olConfidential;
                         Cancel = false;
                         break;
-                    case 1: //send email normal
+                    case 1: //change value of sensitivity to Normal and then send
                         mail.Sensitivity = Outlook.OlSensitivity.olNormal;
                         Cancel = false;
                         break;
