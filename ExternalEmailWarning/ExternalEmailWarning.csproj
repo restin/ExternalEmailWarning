@@ -31,10 +31,10 @@
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>\\pwhdc02\SYSVOL\PrimeWestHealthSystem.local\scripts\AppDeploy_EmailAddin_Test\</PublishUrl>
-    <InstallUrl>\\pwhdc02\SYSVOL\PrimeWestHealthSystem.local\scripts\AppDeploy_EmailAddin_Test\</InstallUrl>
+    <PublishUrl>\\pwhdc02\SYSVOL\PrimeWestHealthSystem.local\scripts\AppDeploy_EmailAddin\Files\</PublishUrl>
+    <InstallUrl>\\pwhdc02\SYSVOL\PrimeWestHealthSystem.local\scripts\AppDeploy_EmailAddin\Files\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>2.0.0.0</ApplicationVersion>
+    <ApplicationVersion>2.0.0.1</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>

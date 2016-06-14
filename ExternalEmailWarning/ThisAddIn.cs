@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Outlook = Microsoft.Office.Interop.Outlook;
 
@@ -87,10 +89,12 @@ namespace ExternalEmailWarning
                     case 0://change value of sensitivity to Confidential and then send
                         mail.Sensitivity = Outlook.OlSensitivity.olConfidential;
                         Cancel = false;
+                        WriteToLogFile(frmWarningForm.OptionSelected());
                         break;
                     case 1: //change value of sensitivity to Normal and then send
                         mail.Sensitivity = Outlook.OlSensitivity.olNormal;
                         Cancel = false;
+                        WriteToLogFile(frmWarningForm.OptionSelected());
                         break;
                     case 2: //cancel send 
                         break;
@@ -101,6 +105,31 @@ namespace ExternalEmailWarning
                 Cancel = false;
             }
         }
+
+        private void WriteToLogFile(int Option)
+        {
+            using (StreamWriter w = File.AppendText("//pwhsyslog/ApplicationLogs/EmailNotification/Staff/" + Environment.UserName + ".txt"))
+            {
+                switch (Option)
+                {
+                    case 0:
+                        Log("Confidential", w);
+                        break;
+                    case 1:
+                        Log("Normal", w);
+                        break;
+                }
+            }
+        }
+
+        public static void Log(string logMessage, TextWriter w)
+        {
+            w.Write("\r\nLog Entry : ");
+            w.Write("{0} - ", logMessage);
+            w.Write("{0} {1}", DateTime.Now.ToLongTimeString(),
+                DateTime.Now.ToLongDateString());
+        }
+
         #region VSTO generated code
 
         /// <summary>
