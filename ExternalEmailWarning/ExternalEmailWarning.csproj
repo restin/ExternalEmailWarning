@@ -31,16 +31,16 @@
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>\\pwhdc02\SYSVOL\PrimeWestHealthSystem.local\scripts\AppDeploy_EmailAddin\Files\</PublishUrl>
-    <InstallUrl>\\pwhdc02\SYSVOL\PrimeWestHealthSystem.local\scripts\AppDeploy_EmailAddin\Files\</InstallUrl>
+    <PublishUrl>\\pwhfs01\ClientApps\EmailWarningCOM\</PublishUrl>
+    <InstallUrl>\\pwhfs01\ClientApps\EmailWarningCOM\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>2.0.0.1</ApplicationVersion>
+    <ApplicationVersion>2.0.0.5</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
-    <UpdateInterval>7</UpdateInterval>
+    <UpdateInterval>0</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
     <ProductName>ExternalEmailWarning</ProductName>
-    <PublisherName />
+    <PublisherName>PrimeWest Health</PublisherName>
     <SupportUrl />
     <FriendlyName>ExternalEmailWarning</FriendlyName>
     <OfficeApplicationDescription />
